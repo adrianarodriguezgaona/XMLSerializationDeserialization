@@ -1,7 +1,9 @@
 ﻿using ClassLibrary1;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+
 
 namespace XmlDeserialization
 {
@@ -9,16 +11,24 @@ namespace XmlDeserialization
     {
         static void Main(string[] args)
         {
-           
-
+            MyConnection connection = new MyConnection();
             string filePath = @"D:\Klanten\MyTest";
             DataSerializer dataSerializer = new DataSerializer();
-            Person person = null;
+            List<Person>Persons = null;
 
-            person = dataSerializer.XmlDeserialize(typeof(Person), filePath) as Person;
+            Persons = dataSerializer.XmlDeserialize(typeof(List<Person>), filePath) as List<Person>;
 
-            Console.WriteLine(person.FirstName);
-            Console.WriteLine(person.LastName);
+            foreach (Person person in Persons)
+            {
+                person.DateInsertSql = DateTime.Now;
+
+                Console.WriteLine(connection.Insert(person.FirstName, person.LastName, person.Status.ToString(), person.DateInsertSql.ToString()));
+
+                //Console.WriteLine(person.FirstName);
+                //Console.WriteLine(person.LastName);
+                //Console.WriteLine(person.Status);
+
+            }
 
         }
 
