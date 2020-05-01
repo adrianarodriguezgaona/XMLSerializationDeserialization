@@ -11,7 +11,7 @@ namespace ClassLibrary1
         public void XmlSerialize(Type dataType, object data, string filePath)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(dataType);
-            if (File.Exists(filePath)) File.Delete(filePath);
+            //if (File.Exists(filePath)) File.Delete(filePath);
             TextWriter writer = new StreamWriter(filePath);
             xmlSerializer.Serialize(writer, data);
             writer.Close();
